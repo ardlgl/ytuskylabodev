@@ -41,6 +41,12 @@ sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidt
 plt.title('Correlation Matrix')
 plt.show()
 
+X = df.drop(['price'], axis=1)
+
+for categ in X.select_dtypes(include=['object']).columns:
+    for num, col in enumerate(X.select_dtypes(exclude=['object']).columns):
+        sns.catplot(x=categ, y=col, data=X, kind='point')
+        plt.show()
 numerical_columns = df.select_dtypes(include=[np.number]).columns
 sns.pairplot(df[numerical_columns])
 plt.show()
